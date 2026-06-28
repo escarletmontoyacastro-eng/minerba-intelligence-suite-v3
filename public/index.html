@@ -9,18 +9,16 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Montserrat', sans-serif; background: #f0f4f8; min-height: 100vh; }
 
-    /* HEADER */
     .header { background: #1A5EA8; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
     .header-left { display: flex; align-items: center; gap: 14px; }
-    .header-brand { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: 3px; }
-    .header-sep { color: rgba(255,255,255,0.35); font-size: 18px; }
-    .header-sub { color: rgba(255,255,255,0.7); font-size: 10px; letter-spacing: 3px; font-weight: 400; }
     .header-badge { background: rgba(255,255,255,0.15); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 5px 14px; border-radius: 20px; }
 
-    /* MAIN */
     .main { max-width: 980px; margin: 0 auto; padding: 32px 20px; }
 
-    /* SEARCH PANEL */
+    .intro-panel { background: #fff; border-radius: 12px; padding: 20px 28px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-left: 4px solid #1A5EA8; }
+    .intro-title { font-size: 13px; font-weight: 700; color: #1A5EA8; margin-bottom: 6px; }
+    .intro-text { font-size: 12px; color: #6b7280; line-height: 1.7; }
+
     .search-panel { background: #fff; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
     .panel-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #9ca3af; text-transform: uppercase; margin-bottom: 16px; }
     .search-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; }
@@ -44,7 +42,6 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-text { font-size: 12px; color: #6b7280; }
 
-    /* CLIENT BAR */
     .client-bar { background: #fff; border-radius: 12px; padding: 16px 28px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; }
     .client-info { display: flex; gap: 28px; align-items: center; }
     .client-item label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: #9ca3af; text-transform: uppercase; display: block; margin-bottom: 3px; }
@@ -54,7 +51,6 @@
     .btn-pdf { background: rgba(26,94,168,0.07); color: #1A5EA8; border: 1px solid rgba(26,94,168,0.25); border-radius: 8px; padding: 8px 18px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s; }
     .btn-pdf:hover { background: rgba(26,94,168,0.12); }
 
-    /* MODULES GRID */
     .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .module { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
     .mod-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
@@ -83,26 +79,31 @@
     .motor-name { font-size: 11px; color: #6b7280; font-weight: 600; }
     .motor-result { font-size: 10px; font-weight: 700; }
 
-    /* HIDDEN */
     #results { display: none; }
+
+    @media print {
+      .search-panel, .btn-analyze, .btn-pdf, .intro-panel { display: none; }
+      .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .module { break-inside: avoid; }
+    }
   </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header-left">
-    <img src="/Logo_Minerba_EN__2_.png" alt="MINERBA Corporate Communication" style="height:38px;filter:brightness(0) invert(1);" />
+    <img src="/Logo_Minerba_EN__2_.png" alt="MINERBA Corporate Communication" style="height:38px;filter:brightness(0) invert(1);" onerror="this.style.display='none'" />
   </div>
   <div class="header-badge">INTELLIGENCE SUITE</div>
 </div>
 
 <div class="main">
 
-  <!-- SEARCH PANEL -->
-  <div style="background:#fff;border-radius:12px;padding:20px 28px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08);border-left:4px solid #1A5EA8;">
-  <div style="font-size:13px;font-weight:600;color:#1A5EA8;margin-bottom:6px;">¿Qué es MINERBA Intelligence Suite?</div>
-  <div style="font-size:12px;color:#6b7280;line-height:1.7;">Plataforma de inteligencia de reputación corporativa desarrollada por MINERBA. Ingresá el nombre de una empresa y su industria para obtener en segundos un análisis de su presencia en medios, una evaluación de riesgo de crisis y su visibilidad en los principales motores de inteligencia artificial.</div>
-</div>
+  <div class="intro-panel">
+    <div class="intro-title">¿Qué es MINERBA Intelligence Suite?</div>
+    <div class="intro-text">Es una plataforma de inteligencia reputacional corporativa desarrollada por MINERBA. Ingresá el nombre de tu empresa y su industria para obtener en tiempo real un análisis de presencia en medios, evaluación de riesgo de crisis y visibilidad en los principales motores de inteligencia artificial.</div>
+  </div>
+
   <div class="search-panel">
     <div class="panel-label">Nueva consulta</div>
     <div class="search-row">
@@ -115,6 +116,7 @@
           <option>Salud y farmacéutica</option>
           <option>Tecnología</option>
           <option>Telecomunicaciones</option>
+          <option>Otros — Servicios</option>
         </optgroup>
         <optgroup label="Consumo masivo">
           <option>Alimentos y bebidas</option>
@@ -122,6 +124,7 @@
           <option>Retail y consumo</option>
           <option>Automotriz</option>
           <option>Moda e indumentaria</option>
+          <option>Otros — Consumo masivo</option>
         </optgroup>
         <optgroup label="Industria">
           <option>Energía y utilities</option>
@@ -129,11 +132,13 @@
           <option>Construcción e inmobiliario</option>
           <option>Agroindustria</option>
           <option>Industria manufacturera</option>
+          <option>Otros — Industria</option>
         </optgroup>
         <optgroup label="Sector público">
           <option>Gobierno y organismos</option>
           <option>Educación</option>
           <option>ONG y tercer sector</option>
+          <option>Otros — Sector público</option>
         </optgroup>
       </select>
       <button class="btn-analyze" id="analyzeBtn" onclick="analyze()">Analizar →</button>
@@ -145,7 +150,6 @@
     </div>
   </div>
 
-  <!-- RESULTS -->
   <div id="results">
     <div class="client-bar">
       <div class="client-info">
@@ -166,7 +170,6 @@
 
     <div class="modules-grid">
 
-      <!-- MODULE 1: Reputation -->
       <div class="module">
         <div class="mod-header">
           <div class="mod-icon" style="background:rgba(26,94,168,0.1);">📰</div>
@@ -180,7 +183,6 @@
         <div class="pills" id="repPills"></div>
       </div>
 
-      <!-- MODULE 2: Crisis -->
       <div class="module">
         <div class="mod-header">
           <div class="mod-icon" style="background:rgba(234,179,8,0.1);">⚠️</div>
@@ -195,7 +197,6 @@
         <div class="rec-box" id="crisisRec"></div>
       </div>
 
-      <!-- MODULE 3: AI Visibility -->
       <div class="module">
         <div class="mod-header">
           <div class="mod-icon" style="background:rgba(139,92,246,0.1);">🤖</div>
@@ -255,7 +256,6 @@
     document.getElementById('loadingRow').style.display = 'flex';
 
     try {
-      // MÓDULO 1: Noticias
       document.getElementById('loadingText').textContent = 'Buscando menciones en medios...';
       const newsData = await callAPI('/api/news', { brand });
       const articles = newsData.articles || [];
@@ -263,85 +263,67 @@
         ? articles.map(a => '- ' + a.title).join('\n')
         : 'No se encontraron noticias recientes sobre ' + brand + '.';
 
-      // MÓDULO 1: Análisis de reputación
       document.getElementById('loadingText').textContent = 'Analizando reputación en medios...';
-      const repPrompt = `Sos un experto en comunicación corporativa y reputación de marcas. Analizá las siguientes noticias sobre "${brand}" en el sector "${industry}" y respondé SOLO en JSON con este formato exacto, sin texto adicional ni backticks:
-{"score":75,"positivo":60,"neutro":25,"negativo":15,"resumen":"Resumen ejecutivo de 2 oraciones.","titulares":[{"texto":"Titular positivo de ejemplo","tono":"positivo"},{"texto":"Titular neutro de ejemplo","tono":"neutro"},{"texto":"Titular negativo de ejemplo","tono":"negativo"}]}
-
-Noticias encontradas:
-${newsText}
-
-Si no hay noticias reales, inventá titulares plausibles. Los porcentajes deben sumar 100.`;
+      const repPrompt = 'Sos un experto en comunicación corporativa y reputación de marcas. Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Analizá las siguientes noticias sobre "' + brand + '" en el sector "' + industry + '" y respondé SOLO en JSON con este formato exacto, sin texto adicional ni backticks:\n{"score":75,"positivo":60,"neutro":25,"negativo":15,"resumen":"Resumen ejecutivo en español de 2 oraciones.","titulares":[{"texto":"Titular positivo en español","tono":"positivo"},{"texto":"Titular neutro en español","tono":"neutro"},{"texto":"Titular negativo en español","tono":"negativo"}]}\n\nNoticias encontradas:\n' + newsText + '\n\nSi no hay noticias reales, inventá titulares plausibles en español. Los porcentajes deben sumar 100.';
 
       const repData = await callAPI('/api/analyze', { prompt: repPrompt });
       const rep = JSON.parse(repData.text.replace(/```json|```/g, '').trim());
 
-      // MÓDULO 2: Crisis
       document.getElementById('loadingText').textContent = 'Evaluando riesgo de crisis...';
-      const crisisPrompt = `Sos un experto en gestión de crisis corporativas. Analizá la situación de "${brand}" en el sector "${industry}" con score de reputación ${rep.score}/100 y respondé SOLO en JSON sin texto adicional ni backticks:
-{"nivel":"verde","estado":"Sin alerta activa","senales":["Señal 1","Señal 2","Señal 3"],"tonoSenales":["verde","verde","amarillo"],"recomendacion":"Recomendación concreta de 1-2 oraciones."}`;
+      const crisisPrompt = 'Sos un experto en gestión de crisis corporativas. Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Analizá la situación de "' + brand + '" en el sector "' + industry + '" con score de reputación ' + rep.score + '/100 y respondé SOLO en JSON sin texto adicional ni backticks:\n{"nivel":"verde","estado":"Sin alerta activa","senales":["Señal 1 en español","Señal 2 en español","Señal 3 en español"],"tonoSenales":["verde","verde","amarillo"],"recomendacion":"Recomendación concreta en español de 1-2 oraciones."}';
 
       const crisisData = await callAPI('/api/analyze', { prompt: crisisPrompt });
       const crisis = JSON.parse(crisisData.text.replace(/```json|```/g, '').trim());
 
-      // MÓDULO 3: AI Visibility
       document.getElementById('loadingText').textContent = 'Midiendo visibilidad en motores de IA...';
-      const aiPrompt = `Sos un experto en AEO (Answer Engine Optimization). Para "${brand}" en "${industry}", simulá su presencia en motores de IA y respondé SOLO en JSON sin texto adicional ni backticks:
-{"score":65,"motores":[{"nombre":"ChatGPT","presente":true,"posicion":2,"tono":"positivo"},{"nombre":"Gemini","presente":true,"posicion":4,"tono":"neutro"},{"nombre":"Perplexity","presente":false,"posicion":null,"tono":"neutro"},{"nombre":"Claude","presente":false,"posicion":null,"tono":"neutro"}],"recomendacion":"Recomendación AEO concreta de 1-2 oraciones."}`;
+      const aiPrompt = 'Sos un experto en AEO (Answer Engine Optimization). Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Para "' + brand + '" en "' + industry + '", simulá su presencia en motores de IA y respondé SOLO en JSON sin texto adicional ni backticks:\n{"score":65,"motores":[{"nombre":"ChatGPT","presente":true,"posicion":2,"tono":"positivo"},{"nombre":"Gemini","presente":true,"posicion":4,"tono":"neutro"},{"nombre":"Perplexity","presente":false,"posicion":null,"tono":"neutro"},{"nombre":"Claude","presente":false,"posicion":null,"tono":"neutro"}],"recomendacion":"Recomendación AEO concreta en español de 1-2 oraciones."}';
 
       const aiData = await callAPI('/api/analyze', { prompt: aiPrompt });
       const ai = JSON.parse(aiData.text.replace(/```json|```/g, '').trim());
 
-      // RENDER RESULTS
       document.getElementById('resBrand').textContent = brand;
       document.getElementById('resIndustry').textContent = industry;
       document.getElementById('resDate').textContent = new Date().toLocaleString('es-AR');
 
-      // Module 1
       document.getElementById('repScore').textContent = rep.score;
       document.getElementById('repBar').style.width = rep.score + '%';
       document.getElementById('repSummary').textContent = rep.resumen;
       document.getElementById('repNews').innerHTML = rep.titulares.map((t, i) =>
-        `<div class="news-item" style="${i===2?'border-bottom:none;margin-bottom:0;padding-bottom:0;':''}">
-          <div class="news-dot" style="background:${toneColor(t.tono)};"></div>
-          <div class="news-text">${t.texto}</div>
-        </div>`
+        '<div class="news-item" style="' + (i===2?'border-bottom:none;margin-bottom:0;padding-bottom:0;':'') + '">' +
+        '<div class="news-dot" style="background:' + toneColor(t.tono) + ';"></div>' +
+        '<div class="news-text">' + t.texto + '</div></div>'
       ).join('');
-      document.getElementById('repPills').innerHTML = `
-        <span class="pill" style="background:#dcfce7;color:#166534;">Positivo ${rep.positivo}%</span>
-        <span class="pill" style="background:#fef9c3;color:#854d0e;">Neutro ${rep.neutro}%</span>
-        <span class="pill" style="background:#fee2e2;color:#991b1b;">Negativo ${rep.negativo}%</span>`;
+      document.getElementById('repPills').innerHTML =
+        '<span class="pill" style="background:#dcfce7;color:#166534;">Positivo ' + rep.positivo + '%</span>' +
+        '<span class="pill" style="background:#fef9c3;color:#854d0e;">Neutro ' + rep.neutro + '%</span>' +
+        '<span class="pill" style="background:#fee2e2;color:#991b1b;">Negativo ' + rep.negativo + '%</span>';
 
-      // Module 2
       document.getElementById('semaforoDot').style.background = semaforoColor(crisis.nivel);
       document.getElementById('semaforoText').textContent = crisis.estado;
       document.getElementById('semaforoText').style.color = semaforoTextColor(crisis.nivel);
       document.getElementById('crisisSignals').innerHTML = crisis.senales.map((s, i) =>
-        `<div class="signal-item">
-          <div class="news-dot" style="background:${semaforoColor(crisis.tonoSenales[i]||'verde')};margin-top:4px;"></div>
-          <div class="news-text">${s}</div>
-        </div>`
+        '<div class="signal-item">' +
+        '<div class="news-dot" style="background:' + semaforoColor(crisis.tonoSenales[i]||'verde') + ';margin-top:4px;"></div>' +
+        '<div class="news-text">' + s + '</div></div>'
       ).join('');
       document.getElementById('crisisRec').style.background = semaforoBg(crisis.nivel);
       document.getElementById('crisisRec').style.border = '1px solid ' + semaforoColor(crisis.nivel) + '44';
-      document.getElementById('crisisRec').innerHTML = `
-        <div class="rec-title" style="color:${semaforoTextColor(crisis.nivel)};">Recomendación IA</div>
-        <div class="rec-text">${crisis.recomendacion}</div>`;
+      document.getElementById('crisisRec').innerHTML =
+        '<div class="rec-title" style="color:' + semaforoTextColor(crisis.nivel) + ';">Recomendación IA</div>' +
+        '<div class="rec-text">' + crisis.recomendacion + '</div>';
 
-      // Module 3
       document.getElementById('aiScore').textContent = ai.score;
       document.getElementById('aiBar').style.width = ai.score + '%';
       document.getElementById('aiMotors').innerHTML = ai.motores.map((m, i) =>
-        `<div class="motor-row" style="${i===3?'border-bottom:none;':''}">
-          <div class="motor-name">${m.nombre}</div>
-          <div class="motor-result" style="color:${m.presente ? (m.posicion<=3?'#22c55e':'#f59e0b') : '#ef4444'};">
-            ${m.presente ? '✓ Posición ' + m.posicion : '✗ No aparece'}
-          </div>
-        </div>`
+        '<div class="motor-row" style="' + (i===3?'border-bottom:none;':'') + '">' +
+        '<div class="motor-name">' + m.nombre + '</div>' +
+        '<div class="motor-result" style="color:' + (m.presente ? (m.posicion<=3?'#22c55e':'#f59e0b') : '#ef4444') + ';">' +
+        (m.presente ? '✓ Posición ' + m.posicion : '✗ No aparece') +
+        '</div></div>'
       ).join('');
-      document.getElementById('aiRec').innerHTML = `
-        <div class="rec-title" style="color:#5b21b6;">Recomendación AEO</div>
-        <div class="rec-text">${ai.recomendacion}</div>`;
+      document.getElementById('aiRec').innerHTML =
+        '<div class="rec-title" style="color:#5b21b6;">Recomendación AEO</div>' +
+        '<div class="rec-text">' + ai.recomendacion + '</div>';
 
       document.getElementById('results').style.display = 'block';
 
