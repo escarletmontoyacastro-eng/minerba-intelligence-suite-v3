@@ -301,7 +301,7 @@
         : 'No se encontraron noticias recientes sobre ' + brand + ' en ' + countryName + '.';
 
       document.getElementById('loadingText').textContent = 'Analizando reputación en medios...';
-      var repPrompt = 'Sos un experto en comunicación corporativa y reputación de marcas. Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Analizá las siguientes noticias sobre "' + brand + '" en el sector "' + industry + '" en ' + countryName + ' y respondé SOLO en JSON con este formato exacto, sin texto adicional ni backticks:\n{"score":75,"positivo":60,"neutro":25,"negativo":15,"resumen":"Resumen ejecutivo en español de 2 oraciones.","titulares":[{"texto":"Titular en español","tono":"positivo","fuente":"Nombre del medio","url":"https://url-del-articulo.com"},{"texto":"Titular en español","tono":"neutro","fuente":"Nombre del medio","url":""},{"texto":"Titular en español","tono":"negativo","fuente":"Nombre del medio","url":""}]}\n\nNoticias encontradas:\n' + newsText + '\n\nIMPORTANTE: Usá las URLs y fuentes reales si están disponibles. Si no hay noticias reales, inventá titulares plausibles con fuente "Análisis IA" y url vacía. Los porcentajes deben sumar 100.';
+      var repPrompt = 'Sos un experto en comunicación corporativa y reputación de marcas. Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Analizá las siguientes noticias sobre "' + brand + '" en el sector "' + industry + '" en ' + countryName + ' y respondé SOLO en JSON con este formato exacto, sin texto adicional ni backticks:\n{"score":75,"positivo":60,"neutro":25,"negativo":15,"resumen":"Resumen ejecutivo en español de 2 oraciones.","titulares":[{"texto":"Titular en español","tono":"positivo","fuente":"Nombre del medio","url":"https://url-del-articulo.com"},{"texto":"Titular en español","tono":"neutro","fuente":"Nombre del medio","url":""},{"texto":"Titular en español","tono":"negativo","fuente":"Nombre del medio","url":""}]}\n\nNoticias encontradas:\n' + newsText + '\n\nIMPORTANTE: Filtrá y usá SOLO las noticias que correspondan al país seleccionado. Descartá cualquier noticia de otros países. Si no hay noticias reales del país, inventá titulares plausibles para ese mercado con fuente "Análisis IA" y url vacía, e indicalo en el resumen. Usá las URLs y fuentes reales si están disponibles. Los porcentajes deben sumar 100.';
 
       var repData = await callAPI('/api/analyze', { prompt: repPrompt });
       var rep = JSON.parse(repData.text.replace(/```json|```/g, '').trim());
@@ -402,5 +402,6 @@
 
 </body>
 </html>
+
 
 
