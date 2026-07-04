@@ -61,10 +61,13 @@
     .bar-bg { height: 4px; background: #f3f4f6; border-radius: 2px; margin: 6px 0 12px; }
     .bar-fill { height: 4px; border-radius: 2px; transition: width 0.8s ease; }
     .summary-text { font-size: 11px; color: #6b7280; margin-bottom: 12px; line-height: 1.6; }
-    .news-item { display: flex; gap: 7px; margin-bottom: 7px; padding-bottom: 7px; border-bottom: 1px solid #f3f4f6; }
+    .news-item { display: flex; gap: 7px; margin-bottom: 7px; padding-bottom: 7px; border-bottom: 1px solid #f3f4f6; align-items: flex-start; }
     .news-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .news-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
     .news-text { font-size: 10px; color: #6b7280; line-height: 1.5; }
+    .news-link { font-size: 9px; color: #1A5EA8; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 2px; }
+    .news-link:hover { text-decoration: underline; }
+    .news-source { font-size: 9px; color: #9ca3af; margin-top: 1px; }
     .pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
     .pill { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
     .semaforo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
@@ -78,6 +81,13 @@
     .motor-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .motor-name { font-size: 11px; color: #6b7280; font-weight: 600; }
     .motor-result { font-size: 10px; font-weight: 700; }
+    .aeo-geo-box { margin-top: 10px; padding: 10px 12px; border-radius: 8px; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); }
+    .aeo-geo-section { margin-bottom: 8px; }
+    .aeo-geo-section:last-child { margin-bottom: 0; }
+    .aeo-geo-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #5b21b6; margin-bottom: 3px; }
+    .aeo-geo-text { font-size: 10px; color: #6b7280; line-height: 1.5; }
+    .aeo-geo-divider { height: 1px; background: rgba(139,92,246,0.15); margin: 8px 0; }
+    .fuente-label { font-size: 9px; color: #9ca3af; margin-top: 10px; font-style: italic; }
 
     #results { display: none; }
 
@@ -160,192 +170,5 @@
         </div>
         <div class="client-sep"></div>
         <div class="client-item">
-          <label>Análisis generado</label>
-          <div class="val" style="font-size:13px;" id="resDate">—</div>
-          <div class="sub">MINERBA Intelligence Suite</div>
-        </div>
-      </div>
-      <button class="btn-pdf" onclick="exportPDF()">↓ Exportar PDF</button>
-    </div>
-
-    <div class="modules-grid">
-
-      <div class="module">
-        <div class="mod-header">
-          <div class="mod-icon" style="background:rgba(26,94,168,0.1);">📰</div>
-          <div class="mod-title">Monitoreo de reputación en medios</div>
-        </div>
-        <div class="score-big" id="repScore" style="color:#1A5EA8;">—</div>
-        <div class="score-lbl">Score de reputación</div>
-        <div class="bar-bg"><div class="bar-fill" id="repBar" style="background:#1A5EA8;width:0%;"></div></div>
-        <div class="summary-text" id="repSummary"></div>
-        <div id="repNews"></div>
-        <div class="pills" id="repPills"></div>
-      </div>
-
-      <div class="module">
-        <div class="mod-header">
-          <div class="mod-icon" style="background:rgba(234,179,8,0.1);">⚠️</div>
-          <div class="mod-title">Alerta temprana de crisis</div>
-        </div>
-        <div class="semaforo-row">
-          <div class="semaforo-dot" id="semaforoDot"></div>
-          <div class="semaforo-text" id="semaforoText"></div>
-        </div>
-        <div class="score-lbl">Señales detectadas</div>
-        <div id="crisisSignals" style="margin-top:8px;"></div>
-        <div class="rec-box" id="crisisRec"></div>
-      </div>
-
-      <div class="module">
-        <div class="mod-header">
-          <div class="mod-icon" style="background:rgba(139,92,246,0.1);">🤖</div>
-          <div class="mod-title">Visibilidad en motores de IA</div>
-        </div>
-        <div class="score-big" id="aiScore" style="color:#7c3aed;">—</div>
-        <div class="score-lbl">AI Visibility Score</div>
-        <div class="bar-bg"><div class="bar-fill" id="aiBar" style="background:#7c3aed;width:0%;"></div></div>
-        <div class="score-lbl" style="margin-bottom:8px;margin-top:4px;">Presencia por motor</div>
-        <div id="aiMotors"></div>
-        <div class="rec-box" id="aiRec" style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);"></div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<script>
-  async function callAPI(endpoint, body) {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    return res.json();
-  }
-
-  function toneColor(t) {
-    return t === 'positivo' ? '#22c55e' : t === 'neutro' ? '#f59e0b' : '#ef4444';
-  }
-
-  function semaforoColor(n) {
-    return n === 'verde' ? '#22c55e' : n === 'amarillo' ? '#f59e0b' : '#ef4444';
-  }
-
-  function semaforoTextColor(n) {
-    return n === 'verde' ? '#166534' : n === 'amarillo' ? '#854d0e' : '#991b1b';
-  }
-
-  function semaforoBg(n) {
-    return n === 'verde' ? '#dcfce7' : n === 'amarillo' ? '#fef9c3' : '#fee2e2';
-  }
-
-  async function analyze() {
-    const brand = document.getElementById('brandInput').value.trim();
-    const industry = document.getElementById('industrySelect').value;
-
-    if (!brand || !industry) {
-      document.getElementById('errorMsg').textContent = 'Por favor ingresá el nombre de la empresa y seleccioná una industria.';
-      document.getElementById('errorMsg').style.display = 'block';
-      return;
-    }
-
-    document.getElementById('errorMsg').style.display = 'none';
-    document.getElementById('results').style.display = 'none';
-    document.getElementById('analyzeBtn').disabled = true;
-    document.getElementById('loadingRow').style.display = 'flex';
-
-    try {
-      document.getElementById('loadingText').textContent = 'Buscando menciones en medios...';
-      const newsData = await callAPI('/api/news', { brand });
-      const articles = newsData.articles || [];
-      const newsText = articles.length > 0
-        ? articles.map(a => '- ' + a.title).join('\n')
-        : 'No se encontraron noticias recientes sobre ' + brand + '.';
-
-      document.getElementById('loadingText').textContent = 'Analizando reputación en medios...';
-      const repPrompt = 'Sos un experto en comunicación corporativa y reputación de marcas. Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Analizá las siguientes noticias sobre "' + brand + '" en el sector "' + industry + '" y respondé SOLO en JSON con este formato exacto, sin texto adicional ni backticks:\n{"score":75,"positivo":60,"neutro":25,"negativo":15,"resumen":"Resumen ejecutivo en español de 2 oraciones.","titulares":[{"texto":"Titular positivo en español","tono":"positivo"},{"texto":"Titular neutro en español","tono":"neutro"},{"texto":"Titular negativo en español","tono":"negativo"}]}\n\nNoticias encontradas:\n' + newsText + '\n\nSi no hay noticias reales, inventá titulares plausibles en español. Los porcentajes deben sumar 100.';
-
-      const repData = await callAPI('/api/analyze', { prompt: repPrompt });
-      const rep = JSON.parse(repData.text.replace(/```json|```/g, '').trim());
-
-      document.getElementById('loadingText').textContent = 'Evaluando riesgo de crisis...';
-      const crisisPrompt = 'Sos un experto en gestión de crisis corporativas. Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Analizá la situación de "' + brand + '" en el sector "' + industry + '" con score de reputación ' + rep.score + '/100 y respondé SOLO en JSON sin texto adicional ni backticks:\n{"nivel":"verde","estado":"Sin alerta activa","senales":["Señal 1 en español","Señal 2 en español","Señal 3 en español"],"tonoSenales":["verde","verde","amarillo"],"recomendacion":"Recomendación concreta en español de 1-2 oraciones."}';
-
-      const crisisData = await callAPI('/api/analyze', { prompt: crisisPrompt });
-      const crisis = JSON.parse(crisisData.text.replace(/```json|```/g, '').trim());
-
-      document.getElementById('loadingText').textContent = 'Midiendo visibilidad en motores de IA...';
-      const aiPrompt = 'Sos un experto en AEO (Answer Engine Optimization). Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Para "' + brand + '" en "' + industry + '", simulá su presencia en motores de IA y respondé SOLO en JSON sin texto adicional ni backticks:\n{"score":65,"motores":[{"nombre":"ChatGPT","presente":true,"posicion":2,"tono":"positivo"},{"nombre":"Gemini","presente":true,"posicion":4,"tono":"neutro"},{"nombre":"Perplexity","presente":false,"posicion":null,"tono":"neutro"},{"nombre":"Claude","presente":false,"posicion":null,"tono":"neutro"}],"recomendacion":"Recomendación AEO concreta en español de 1-2 oraciones."}';
-
-      const aiData = await callAPI('/api/analyze', { prompt: aiPrompt });
-      const ai = JSON.parse(aiData.text.replace(/```json|```/g, '').trim());
-
-      document.getElementById('resBrand').textContent = brand;
-      document.getElementById('resIndustry').textContent = industry;
-      document.getElementById('resDate').textContent = new Date().toLocaleString('es-AR');
-
-      document.getElementById('repScore').textContent = rep.score;
-      document.getElementById('repBar').style.width = rep.score + '%';
-      document.getElementById('repSummary').textContent = rep.resumen;
-      document.getElementById('repNews').innerHTML = rep.titulares.map((t, i) =>
-        '<div class="news-item" style="' + (i===2?'border-bottom:none;margin-bottom:0;padding-bottom:0;':'') + '">' +
-        '<div class="news-dot" style="background:' + toneColor(t.tono) + ';"></div>' +
-        '<div class="news-text">' + t.texto + '</div></div>'
-      ).join('');
-      document.getElementById('repPills').innerHTML =
-        '<span class="pill" style="background:#dcfce7;color:#166534;">Positivo ' + rep.positivo + '%</span>' +
-        '<span class="pill" style="background:#fef9c3;color:#854d0e;">Neutro ' + rep.neutro + '%</span>' +
-        '<span class="pill" style="background:#fee2e2;color:#991b1b;">Negativo ' + rep.negativo + '%</span>';
-
-      document.getElementById('semaforoDot').style.background = semaforoColor(crisis.nivel);
-      document.getElementById('semaforoText').textContent = crisis.estado;
-      document.getElementById('semaforoText').style.color = semaforoTextColor(crisis.nivel);
-      document.getElementById('crisisSignals').innerHTML = crisis.senales.map((s, i) =>
-        '<div class="signal-item">' +
-        '<div class="news-dot" style="background:' + semaforoColor(crisis.tonoSenales[i]||'verde') + ';margin-top:4px;"></div>' +
-        '<div class="news-text">' + s + '</div></div>'
-      ).join('');
-      document.getElementById('crisisRec').style.background = semaforoBg(crisis.nivel);
-      document.getElementById('crisisRec').style.border = '1px solid ' + semaforoColor(crisis.nivel) + '44';
-      document.getElementById('crisisRec').innerHTML =
-        '<div class="rec-title" style="color:' + semaforoTextColor(crisis.nivel) + ';">Recomendación IA</div>' +
-        '<div class="rec-text">' + crisis.recomendacion + '</div>';
-
-      document.getElementById('aiScore').textContent = ai.score;
-      document.getElementById('aiBar').style.width = ai.score + '%';
-      document.getElementById('aiMotors').innerHTML = ai.motores.map((m, i) =>
-        '<div class="motor-row" style="' + (i===3?'border-bottom:none;':'') + '">' +
-        '<div class="motor-name">' + m.nombre + '</div>' +
-        '<div class="motor-result" style="color:' + (m.presente ? (m.posicion<=3?'#22c55e':'#f59e0b') : '#ef4444') + ';">' +
-        (m.presente ? '✓ Posición ' + m.posicion : '✗ No aparece') +
-        '</div></div>'
-      ).join('');
-      document.getElementById('aiRec').innerHTML =
-        '<div class="rec-title" style="color:#5b21b6;">Recomendación AEO</div>' +
-        '<div class="rec-text">' + ai.recomendacion + '</div>';
-
-      document.getElementById('results').style.display = 'block';
-
-    } catch (e) {
-      document.getElementById('errorMsg').textContent = 'Ocurrió un error al analizar. Intentá de nuevo.';
-      document.getElementById('errorMsg').style.display = 'block';
-      console.error(e);
-    } finally {
-      document.getElementById('analyzeBtn').disabled = false;
-      document.getElementById('loadingRow').style.display = 'none';
-    }
-  }
-
-  function exportPDF() {
-    window.print();
-  }
-
-  document.getElementById('brandInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') analyze();
-  });
-</script>
-
-</body>
-</html>
+          <label>Análisis generado</label
 
