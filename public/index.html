@@ -8,32 +8,19 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Montserrat', sans-serif; background: #f0f4f8; min-height: 100vh; color: #111827; }
-
     .header { background: #1A5EA8; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
     .header-left { display: flex; align-items: center; gap: 14px; }
     .header-badge { background: rgba(255,255,255,0.15); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 5px 14px; border-radius: 20px; }
-
     .main { max-width: 980px; margin: 0 auto; padding: 32px 20px; }
-
     .intro-panel { background: #fff; border-radius: 12px; padding: 20px 28px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-left: 4px solid #1A5EA8; }
     .intro-title { font-size: 13px; font-weight: 700; color: #1A5EA8; margin-bottom: 6px; }
     .intro-text { font-size: 13px; color: #111827; line-height: 1.7; }
-
     .search-panel { background: #fff; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
     .panel-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #9ca3af; text-transform: uppercase; margin-bottom: 16px; }
     .search-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; }
-    .search-row input, .search-row select {
-      padding: 11px 14px; border: 1px solid #e5e7eb; border-radius: 8px;
-      font-family: 'Montserrat', sans-serif; font-size: 13px; color: #111827; outline: none;
-      transition: border-color 0.2s;
-    }
+    .search-row input, .search-row select { padding: 11px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 13px; color: #111827; outline: none; transition: border-color 0.2s; }
     .search-row input:focus, .search-row select:focus { border-color: #1A5EA8; box-shadow: 0 0 0 3px rgba(26,94,168,0.1); }
-    .btn-analyze {
-      background: #1A5EA8; color: #fff; border: none; border-radius: 8px;
-      padding: 11px 24px; font-family: 'Montserrat', sans-serif; font-size: 13px;
-      font-weight: 700; cursor: pointer; white-space: nowrap; letter-spacing: 0.5px;
-      transition: background 0.2s;
-    }
+    .btn-analyze { background: #1A5EA8; color: #fff; border: none; border-radius: 8px; padding: 11px 24px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; letter-spacing: 0.5px; transition: background 0.2s; }
     .btn-analyze:hover { background: #1550a0; }
     .btn-analyze:disabled { background: #93c5fd; cursor: not-allowed; }
     .error-msg { color: #dc2626; font-size: 13px; margin-top: 12px; }
@@ -41,16 +28,13 @@
     .spinner { width: 16px; height: 16px; border: 2px solid #1A5EA8; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-text { font-size: 13px; color: #111827; }
-
     .client-bar { background: #fff; border-radius: 12px; padding: 16px 28px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; }
     .client-info { display: flex; gap: 28px; align-items: center; }
     .client-item label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: #9ca3af; text-transform: uppercase; display: block; margin-bottom: 3px; }
     .client-item .val { font-size: 15px; font-weight: 700; color: #111827; }
     .client-item .sub { font-size: 11px; color: #6b7280; margin-top: 1px; }
     .client-sep { width: 1px; height: 36px; background: #e5e7eb; }
-    .btn-pdf { background: rgba(26,94,168,0.07); color: #1A5EA8; border: 1px solid rgba(26,94,168,0.25); border-radius: 8px; padding: 8px 18px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s; }
-    .btn-pdf:hover { background: rgba(26,94,168,0.12); }
-
+    .btn-pdf { background: rgba(26,94,168,0.07); color: #1A5EA8; border: 1px solid rgba(26,94,168,0.25); border-radius: 8px; padding: 8px 18px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; }
     .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .module { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
     .mod-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
@@ -61,6 +45,7 @@
     .bar-bg { height: 4px; background: #f3f4f6; border-radius: 2px; margin: 6px 0 12px; }
     .bar-fill { height: 4px; border-radius: 2px; transition: width 0.8s ease; }
     .summary-text { font-size: 12px; color: #111827; margin-bottom: 12px; line-height: 1.6; }
+    .no-data-box { background: #fef9c3; border: 1px solid #fde047; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; font-size: 11px; color: #854d0e; line-height: 1.5; }
     .news-item { display: flex; gap: 7px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6; align-items: flex-start; }
     .news-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .news-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
@@ -89,9 +74,8 @@
     .aeo-geo-text { font-size: 12px; color: #111827; line-height: 1.5; }
     .aeo-geo-divider { height: 1px; background: rgba(139,92,246,0.15); margin: 8px 0; }
     .fuente-label { font-size: 10px; color: #6b7280; margin-top: 10px; font-style: italic; }
-
+    .score-disclaimer { font-size: 10px; color: #9ca3af; margin-top: 4px; font-style: italic; }
     #results { display: none; }
-
     @media print {
       .search-panel, .btn-analyze, .btn-pdf, .intro-panel { display: none; }
       .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -109,7 +93,6 @@
 </div>
 
 <div class="main">
-
   <div class="intro-panel">
     <div class="intro-title">¿Qué es MINERBA Intelligence Suite?</div>
     <div class="intro-text">Es una plataforma de inteligencia reputacional corporativa desarrollada por MINERBA. Ingresá el nombre de tu empresa y su industria para obtener en tiempo real un análisis de presencia en medios, evaluación de riesgo de crisis y visibilidad en los principales motores de inteligencia artificial.</div>
@@ -196,7 +179,6 @@
     </div>
 
     <div class="modules-grid">
-
       <div class="module">
         <div class="mod-header">
           <div class="mod-icon" style="background:rgba(26,94,168,0.1);">📰</div>
@@ -204,7 +186,9 @@
         </div>
         <div class="score-big" id="repScore" style="color:#1A5EA8;">—</div>
         <div class="score-lbl">Score de reputación</div>
+        <div class="score-disclaimer" id="repDisclaimer"></div>
         <div class="bar-bg"><div class="bar-fill" id="repBar" style="background:#1A5EA8;width:0%;"></div></div>
+        <div id="repNoData" style="display:none;" class="no-data-box">⚠️ No se encontraron noticias verificables en medios para este período. El score no puede calcularse con datos reales.</div>
         <div class="summary-text" id="repSummary"></div>
         <div id="repNews"></div>
         <div class="pills" id="repPills"></div>
@@ -232,12 +216,12 @@
         </div>
         <div class="score-big" id="aiScore" style="color:#7c3aed;">—</div>
         <div class="score-lbl">AI Visibility Score</div>
+        <div class="score-disclaimer" id="aiDisclaimer"></div>
         <div class="bar-bg"><div class="bar-fill" id="aiBar" style="background:#7c3aed;width:0%;"></div></div>
         <div class="score-lbl" style="margin-bottom:8px;margin-top:4px;">Presencia por motor</div>
         <div id="aiMotors"></div>
         <div class="aeo-geo-box" id="aiRec"></div>
       </div>
-
     </div>
   </div>
 </div>
@@ -273,6 +257,18 @@
     return n === 'verde' ? '#dcfce7' : n === 'amarillo' ? '#fef9c3' : '#fee2e2';
   }
 
+  // Calcula el AI Visibility Score de forma matemática
+  function calcAIScore(motores) {
+    var total = 0;
+    motores.forEach(function(m) {
+      if (!m.presente) { total += 0; }
+      else if (m.posicion <= 3) { total += 25; }
+      else if (m.posicion <= 7) { total += 15; }
+      else { total += 8; }
+    });
+    return total;
+  }
+
   async function analyze() {
     var brand = document.getElementById('brandInput').value.trim();
     var industry = document.getElementById('industrySelect').value;
@@ -294,57 +290,82 @@
       document.getElementById('loadingText').textContent = 'Buscando menciones en medios...';
       var newsData = await callAPI('/api/news', { brand: brand, country: country });
       var articles = newsData.articles || [];
-      var newsText = articles.length > 0
+      var hasRealNews = articles.length > 0;
+
+      var newsText = hasRealNews
         ? articles.map(function(a) {
             return '- ' + a.title + ' [FUENTE: ' + (a.source && a.source.name ? a.source.name : 'Medio digital') + '] [URL: ' + (a.url || '') + ']';
           }).join('\n')
         : 'No se encontraron noticias recientes sobre ' + brand + ' en ' + countryName + '.';
 
       document.getElementById('loadingText').textContent = 'Analizando reputación en medios...';
-      var repPrompt = 'Sos un experto en comunicación corporativa y reputación de marcas. Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Analizá las siguientes noticias sobre "' + brand + '" en el sector "' + industry + '" en ' + countryName + ' y respondé SOLO en JSON con este formato exacto, sin texto adicional ni backticks:\n{"score":75,"positivo":60,"neutro":25,"negativo":15,"resumen":"Resumen ejecutivo en español de 2 oraciones.","titulares":[{"texto":"Titular en español","tono":"positivo","fuente":"Nombre del medio","url":"https://url-del-articulo.com"},{"texto":"Titular en español","tono":"neutro","fuente":"Nombre del medio","url":""},{"texto":"Titular en español","tono":"negativo","fuente":"Nombre del medio","url":""}]}\n\nNoticias encontradas:\n' + newsText + '\n\nIMPORTANTE: Filtrá y usá SOLO las noticias que correspondan al país seleccionado. Descartá cualquier noticia de otros países. Si no hay noticias reales del país, inventá titulares plausibles para ese mercado con fuente "Análisis IA" y url vacía, e indicalo en el resumen. Usá las URLs y fuentes reales si están disponibles. Los porcentajes deben sumar 100.';
+
+      var repPrompt;
+      if (hasRealNews) {
+        repPrompt = 'Sos un experto en comunicación corporativa. Respondé SIEMPRE EN ESPAÑOL. Analizá estas noticias REALES sobre "' + brand + '" en "' + industry + '" en ' + countryName + '. El score debe calcularse ÚNICAMENTE en base al tono de las noticias reales: (% positivo × 1) + (% neutro × 0.5) + (% negativo × 0). Respondé SOLO en JSON sin backticks:\n{"score":<número 0-100 calculado por tono real>,"positivo":<% positivo>,"neutro":<% neutro>,"negativo":<% negativo>,"resumen":"Resumen de 2 oraciones basado en noticias reales.","titulares":[{"texto":"Titular real","tono":"positivo","fuente":"Nombre medio","url":"https://url"},{"texto":"Titular real","tono":"neutro","fuente":"Nombre medio","url":""},{"texto":"Titular real","tono":"negativo","fuente":"Nombre medio","url":""}],"tieneNoticiasReales":true}\n\nNoticias:\n' + newsText + '\n\nUsá SOLO noticias de ' + countryName + '. Los porcentajes deben sumar 100.';
+      } else {
+        repPrompt = 'No hay noticias reales disponibles sobre "' + brand + '" en ' + countryName + '. Respondé SOLO en JSON sin backticks:\n{"score":0,"positivo":0,"neutro":0,"negativo":0,"resumen":"No se encontraron noticias verificables en medios para este período en ' + countryName + '. El análisis de reputación requiere datos reales de medios.","titulares":[],"tieneNoticiasReales":false}';
+      }
 
       var repData = await callAPI('/api/analyze', { prompt: repPrompt });
       var rep = JSON.parse(repData.text.replace(/```json|```/g, '').trim());
 
       document.getElementById('loadingText').textContent = 'Evaluando riesgo de crisis...';
-      var crisisPrompt = 'Sos un experto en gestión de crisis corporativas. Respondé SIEMPRE EN ESPAÑOL, sin usar palabras en inglés. Analizá la situación de "' + brand + '" en el sector "' + industry + '" en ' + countryName + ' con score de reputación ' + rep.score + '/100 y respondé SOLO en JSON sin texto adicional ni backticks:\n{"nivel":"verde","estado":"Sin alerta activa","senales":["Señal 1","Señal 2","Señal 3"],"tonoSenales":["verde","verde","amarillo"],"analisisPredictivo":"Análisis predictivo concreto en español de 2 oraciones basado en tendencias del sector."}';
+      var crisisPrompt = 'Sos un experto en gestión de crisis corporativas. Respondé SIEMPRE EN ESPAÑOL. Analizá la situación de "' + brand + '" en "' + industry + '" en ' + countryName + '. ' + (hasRealNews ? 'Score de reputación basado en noticias reales: ' + rep.score + '/100.' : 'No hay noticias reales disponibles.') + ' Respondé SOLO en JSON sin backticks:\n{"nivel":"verde","estado":"Sin alerta activa","senales":["Señal 1","Señal 2","Señal 3"],"tonoSenales":["verde","verde","amarillo"],"analisisPredictivo":"Análisis predictivo concreto de 2 oraciones."}';
 
       var crisisData = await callAPI('/api/analyze', { prompt: crisisPrompt });
       var crisis = JSON.parse(crisisData.text.replace(/```json|```/g, '').trim());
 
       document.getElementById('loadingText').textContent = 'Midiendo visibilidad en motores de IA...';
-      var aiPrompt = 'Sos un experto en AEO (Answer Engine Optimization) y GEO (Generative Engine Optimization). Respondé SIEMPRE EN ESPAÑOL. Para "' + brand + '" en "' + industry + '" en ' + countryName + ', simulá su presencia en motores de IA y respondé SOLO en JSON sin texto adicional ni backticks:\n{"score":65,"motores":[{"nombre":"ChatGPT","presente":true,"posicion":2,"tono":"positivo"},{"nombre":"Gemini","presente":true,"posicion":4,"tono":"neutro"},{"nombre":"Perplexity","presente":false,"posicion":null,"tono":"neutro"},{"nombre":"Claude","presente":false,"posicion":null,"tono":"neutro"}],"recomendacionAEO":"Recomendación AEO concreta en español: qué hacer para aparecer en motores de búsqueda con IA como Perplexity y SearchGPT.","recomendacionGEO":"Recomendación GEO concreta en español: qué hacer para aparecer en respuestas generadas por modelos como ChatGPT, Gemini y Claude."}';
+      var aiPrompt = 'Sos un experto en AEO y GEO. Respondé SIEMPRE EN ESPAÑOL. Para "' + brand + '" en "' + industry + '" en ' + countryName + ', evaluá su presencia REAL en motores de IA basándote en su presencia digital conocida. Respondé SOLO en JSON sin backticks:\n{"motores":[{"nombre":"ChatGPT","presente":true,"posicion":3,"tono":"positivo"},{"nombre":"Gemini","presente":false,"posicion":null,"tono":"neutro"},{"nombre":"Perplexity","presente":false,"posicion":null,"tono":"neutro"},{"nombre":"Claude","presente":false,"posicion":null,"tono":"neutro"}],"recomendacionAEO":"Recomendación AEO concreta.","recomendacionGEO":"Recomendación GEO concreta."}\n\nIMPORTANTE: Sé honesto sobre la presencia real. Una marca poco conocida digitalmente debe tener presente:false en la mayoría de los motores.';
 
       var aiData = await callAPI('/api/analyze', { prompt: aiPrompt });
-      var ai = JSON.parse(aiData.text.replace(/```json|```/g, '').trim());
+      var aiRaw = JSON.parse(aiData.text.replace(/```json|```/g, '').trim());
 
+      // Calcular score matemáticamente
+      var aiScoreCalc = calcAIScore(aiRaw.motores);
+      var motoresPresentes = aiRaw.motores.filter(function(m) { return m.presente; }).length;
+
+      // RENDER
       document.getElementById('resBrand').textContent = brand;
       document.getElementById('resIndustry').textContent = industry;
       document.getElementById('resCountry').textContent = countryName;
       document.getElementById('resDate').textContent = new Date().toLocaleString('es-AR');
 
-      document.getElementById('repScore').textContent = rep.score;
-      document.getElementById('repBar').style.width = rep.score + '%';
+      // Módulo 1 — Reputación
+      if (!rep.tieneNoticiasReales) {
+        document.getElementById('repScore').textContent = 'S/D';
+        document.getElementById('repScore').style.color = '#9ca3af';
+        document.getElementById('repBar').style.width = '0%';
+        document.getElementById('repNoData').style.display = 'block';
+        document.getElementById('repDisclaimer').textContent = 'Sin datos de medios verificables';
+        document.getElementById('repPills').innerHTML = '';
+      } else {
+        document.getElementById('repScore').textContent = rep.score;
+        document.getElementById('repScore').style.color = '#1A5EA8';
+        document.getElementById('repBar').style.width = rep.score + '%';
+        document.getElementById('repNoData').style.display = 'none';
+        document.getElementById('repDisclaimer').textContent = 'Calculado en base a ' + articles.length + ' noticias verificadas';
+        document.getElementById('repPills').innerHTML =
+          '<span class="pill" style="background:#dcfce7;color:#166534;">Positivo ' + rep.positivo + '%</span>' +
+          '<span class="pill" style="background:#fef9c3;color:#854d0e;">Neutro ' + rep.neutro + '%</span>' +
+          '<span class="pill" style="background:#fee2e2;color:#991b1b;">Negativo ' + rep.negativo + '%</span>';
+      }
       document.getElementById('repSummary').textContent = rep.resumen;
       document.getElementById('repNews').innerHTML = rep.titulares.map(function(t, i) {
         var hasUrl = t.url && t.url.length > 5;
         return '<div class="news-item" style="' + (i===2?'border-bottom:none;margin-bottom:0;padding-bottom:0;':'') + '">' +
           '<div class="news-dot" style="background:' + toneColor(t.tono) + ';"></div>' +
-          '<div>' +
-            '<div class="news-text">' + t.texto + '</div>' +
-            '<div class="news-source">' + (t.fuente || '') + '</div>' +
-            (hasUrl ? '<a class="news-link" href="' + t.url + '" target="_blank" rel="noopener">Ver nota →</a>' : '') +
-          '</div>' +
-        '</div>';
+          '<div><div class="news-text">' + t.texto + '</div>' +
+          '<div class="news-source">' + (t.fuente || '') + '</div>' +
+          (hasUrl ? '<a class="news-link" href="' + t.url + '" target="_blank" rel="noopener">Ver nota →</a>' : '') +
+          '</div></div>';
       }).join('');
-      document.getElementById('repPills').innerHTML =
-        '<span class="pill" style="background:#dcfce7;color:#166534;">Positivo ' + rep.positivo + '%</span>' +
-        '<span class="pill" style="background:#fef9c3;color:#854d0e;">Neutro ' + rep.neutro + '%</span>' +
-        '<span class="pill" style="background:#fee2e2;color:#991b1b;">Negativo ' + rep.negativo + '%</span>';
-      document.getElementById('repFuente').textContent = articles.length > 0
-        ? 'Fuente: NewsAPI · ' + articles.length + ' artículos analizados en ' + countryName
-        : 'Fuente: Análisis IA basado en conocimiento del sector';
+      document.getElementById('repFuente').textContent = hasRealNews
+        ? 'Fuente: NewsAPI · ' + articles.length + ' artículos verificados en ' + countryName
+        : 'Sin fuentes verificables disponibles para este período';
 
+      // Módulo 2 — Crisis
       document.getElementById('semaforoDot').style.background = semaforoColor(crisis.nivel);
       document.getElementById('semaforoText').textContent = crisis.estado;
       document.getElementById('semaforoText').style.color = semaforoTextColor(crisis.nivel);
@@ -359,24 +380,29 @@
         '<div class="rec-title" style="color:' + semaforoTextColor(crisis.nivel) + ';">Análisis predictivo</div>' +
         '<div class="rec-text">' + (crisis.analisisPredictivo || '') + '</div>';
 
-      document.getElementById('aiScore').textContent = ai.score;
-      document.getElementById('aiBar').style.width = ai.score + '%';
-      document.getElementById('aiMotors').innerHTML = ai.motores.map(function(m, i) {
+      // Módulo 3 — AI Visibility (score matemático)
+      document.getElementById('aiScore').textContent = aiScoreCalc;
+      document.getElementById('aiBar').style.width = aiScoreCalc + '%';
+      document.getElementById('aiDisclaimer').textContent = motoresPresentes + ' de 4 motores · 25 pts por motor (posición 1-3), 15 pts (4-7), 8 pts (8-10)';
+      document.getElementById('aiMotors').innerHTML = aiRaw.motores.map(function(m, i) {
+        var pts = !m.presente ? 0 : m.posicion <= 3 ? 25 : m.posicion <= 7 ? 15 : 8;
         return '<div class="motor-row" style="' + (i===3?'border-bottom:none;':'') + '">' +
           '<div class="motor-name">' + m.nombre + '</div>' +
+          '<div style="display:flex;align-items:center;gap:8px;">' +
           '<div class="motor-result" style="color:' + (m.presente ? (m.posicion<=3?'#22c55e':'#f59e0b') : '#ef4444') + ';">' +
-          (m.presente ? '✓ Posición ' + m.posicion : '✗ No aparece') +
+          (m.presente ? '✓ Posición ' + m.posicion : '✗ No aparece') + '</div>' +
+          '<div style="font-size:9px;color:#9ca3af;font-weight:600;">' + pts + 'pts</div>' +
           '</div></div>';
       }).join('');
       document.getElementById('aiRec').innerHTML =
         '<div class="aeo-geo-section">' +
           '<div class="aeo-geo-title">Estrategia AEO</div>' +
-          '<div class="aeo-geo-text">' + (ai.recomendacionAEO || '') + '</div>' +
+          '<div class="aeo-geo-text">' + (aiRaw.recomendacionAEO || '') + '</div>' +
         '</div>' +
         '<div class="aeo-geo-divider"></div>' +
         '<div class="aeo-geo-section">' +
           '<div class="aeo-geo-title">Estrategia GEO</div>' +
-          '<div class="aeo-geo-text">' + (ai.recomendacionGEO || '') + '</div>' +
+          '<div class="aeo-geo-text">' + (aiRaw.recomendacionGEO || '') + '</div>' +
         '</div>';
 
       document.getElementById('results').style.display = 'block';
@@ -391,17 +417,12 @@
     }
   }
 
-  function exportPDF() {
-    window.print();
-  }
+  function exportPDF() { window.print(); }
 
   document.getElementById('brandInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') analyze();
   });
 </script>
-
 </body>
 </html>
-
-
 
