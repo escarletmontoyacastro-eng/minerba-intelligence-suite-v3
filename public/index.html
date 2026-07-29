@@ -455,19 +455,28 @@
       }
 
       var repData = await callAPI('/api/analyze', { prompt: repPrompt });
-      var rep = JSON.parse(repData.text.replace(/```json|```/g, '').trim());
+      var repText = repData.text.replace(/```json|```/g, "").trim();
+      var repJsonMatch = repText.match(/{[\s\S]*}/);
+      if (!repJsonMatch) throw new Error("No JSON in rep response");
+      var rep = JSON.parse(repJsonMatch[0]);
 
       document.getElementById('loadingText').textContent = 'Evaluando riesgo de crisis...';
       var crisisPrompt = 'Sos un experto en gestión de crisis corporativas. Respondé SIEMPRE EN ESPAÑOL. Analizá "' + brand + '" en "' + industry + '" en ' + countryName + '. ' + (hasRealNews ? 'Score de reputación: ' + rep.score + '/100.' : 'No hay noticias reales disponibles.') + ' Respondé SOLO en JSON sin backticks:\n{"nivel":"verde","estado":"Sin alerta activa","senales":["Señal 1","Señal 2","Señal 3"],"tonoSenales":["verde","verde","amarillo"],"analisisPredictivo":"Análisis predictivo concreto de 2 oraciones."}';
 
       var crisisData = await callAPI('/api/analyze', { prompt: crisisPrompt });
-      var crisis = JSON.parse(crisisData.text.replace(/```json|```/g, '').trim());
+      var crisisText = crisisData.text.replace(/```json|```/g, "").trim();
+      var crisisJsonMatch = crisisText.match(/{[\s\S]*}/);
+      if (!crisisJsonMatch) throw new Error("No JSON in crisis response");
+      var crisis = JSON.parse(crisisJsonMatch[0]);
 
       document.getElementById('loadingText').textContent = 'Midiendo visibilidad en motores de IA...';
       var aiPrompt = 'Sos un experto en AEO y GEO. Respondé SIEMPRE EN ESPAÑOL. Para "' + brand + '" en "' + industry + '" en ' + countryName + ', evaluá su presencia REAL en motores de IA. Respondé SOLO en JSON sin backticks:\n{"motores":[{"nombre":"ChatGPT","presente":true,"posicion":3,"tono":"positivo"},{"nombre":"Gemini","presente":false,"posicion":null,"tono":"neutro"},{"nombre":"Perplexity","presente":false,"posicion":null,"tono":"neutro"},{"nombre":"Claude","presente":false,"posicion":null,"tono":"neutro"}],"recomendacionAEO":"Recomendación AEO concreta.","recomendacionGEO":"Recomendación GEO concreta."}\n\nSé honesto: una marca poco conocida debe tener presente:false en la mayoría de los motores.';
 
       var aiData = await callAPI('/api/analyze', { prompt: aiPrompt });
-      var aiRaw = JSON.parse(aiData.text.replace(/```json|```/g, '').trim());
+      var aiText = aiData.text.replace(/```json|```/g, "").trim();
+      var aiJsonMatch = aiText.match(/{[\s\S]*}/);
+      if (!aiJsonMatch) throw new Error("No JSON in ai response");
+      var aiRaw = JSON.parse(aiJsonMatch[0]);
       var aiScoreCalc = calcAIScore(aiRaw.motores);
       var motoresPresentes = aiRaw.motores.filter(function(m) { return m.presente; }).length;
 
